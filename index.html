@@ -1,9 +1,10 @@
+<!-- START OF FILE 9B.html -->
 <!DOCTYPE html>
 <html lang="km">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ប្រឡងប្រចាំខែឧសភា - គណិតវិទ្យា ថ្នាក់ទី៩</title>
+    <title>ប្រឡងប្រចាំខែឧសភា - គណិតវិទ្យា ថ្នាក់ទី៩ (កម្រិតមធ្យម)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap');
@@ -141,8 +142,8 @@
 </div>
 
 <script>
-    // Link ថ្មីរបស់លោកគ្រូ
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymh8B43LyACVC59loq6aLtBzUd0Ynpm2fGqtL9s6gac6Wv8XICqhIetv42954mTFwp/exec";
+    // ភ្ជាប់លីង Google Script របស់លោកគ្រូ
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZ1Ytpwd9JMgp_cHOvh_3m1Q_6swqGZNsFvfaQJXEU4G8Es5xYL4qcTb6mBLQGwsXV/exec";
 
     let currentQ = 0, score = 0, correctCount = 0, wrongCount = 0, unknownCount = 0;
     let selectedClass = "", selectedGender = "";
@@ -213,11 +214,11 @@
             {q: "បន្ទាត់ដែលកាត់តាម (1, 5) និង (1, -2) ជាបន្ទាត់ប្រភេទណា?", a: "បន្ទាត់ឈរ", o: ["បន្ទាត់ដេក", "បន្ទាត់បញ្ឆិត", "បន្ទាត់កាត់តាម O"]},
             {q: "រកកូអរដោនេចំណុចកណ្តាលនៃ A(1/2, 1) និង B(3/2, 5)?", a: "(1, 3)", o: ["(2, 6)", "(1, 2)", "(1/2, 3)"]},
             {q: "បើបន្ទាត់ y = ax + 3 និង y = 3x - 1 ស្របគ្នា តម្លៃ a គឺ?", a: "3", o: ["-3", "1/3", "-1/3"]},
-            {q: "មុំចារឹកក្នុងពីរដែលស្ទាក់ធ្នូដដែល តើវាមានទំនាក់ទំនងយ៉ាងណា?", a: "មានរង្វាស់ស្មើគ្នា", o: ["មានរង្វាស់បន្ថែមគ្នា", "មានរង្វាស់បំពេញគ្នា", "ផលបូកស្មើ ១៨០"]},
+            {q: "មុំចារឹកក្នុងពីរដែលស្ទាក់ធ្នូដដែល តើវាមានទំនាក់ទំនងយ៉ាងណា?", a: "មានរង្វាស់ស្មើគ្នា", o: ["មានរង្វាស់បន្ថែមគ្នា", "មានរង្វាស់បំពេញគ្នា", "ផលបូកស្មើ ១៨០"],},
             {q: "ក្នុងត្រីកោណកែងមួយ ជ្រុងមុំកែងមានប្រវែង ៦ និង ៨។ រកចម្ងាយពីកំពូលមុំកែងទៅពាក់កណ្តាលអ៊ីប៉ូតេនុស?", a: "5", o: ["10", "7", "√14"]},
             {q: "រកមេគុណប្រាប់ទិសនៃអ័ក្សអរដោនេ (Oy)?", a: "គ្មានមេគុណប្រាប់ទិស", o: ["0", "1", "-1"]},
             {q: "បើបោះឡុកឡាក់មួយគ្រាប់ តើប្រូបាបដែលមិនចេញលេខ ៦ គឺ?", a: "5/6", o: ["1/6", "0", "1"]},
-            {q: "មុំចារឹកក្នុងកន្លះរង្វង់មានរង្វាស់ប៉ុន្មាន?", a: "π/2 រ៉ាដ្យង់", o: ["π រ៉ាដ្យង់", "90 រ៉ាដ្យង់", "45 ដឺក្រេ"]},
+            {q: "មុំចារឹកក្នុងកន្លះរង្វង់មានរង្វាស់ប៉ុន្មាន?", a: "90 ដឺក្រេ", o: ["180 ដឺក្រេ", "360 ដឺក្រេ", "45 ដឺក្រេ"]},
             {q: "ក្នុងរង្វង់មួយ ធ្នូ AC មានរង្វាស់ ៧០ ដឺក្រេ និងធ្នូ BD មានរង្វាស់ ៣០ ដឺក្រេ។ រកមុំដែលបង្កើតដោយអង្កត់ធ្នូ AC និង BD កាត់គ្នាក្នុងរង្វង់?", a: "50 ដឺក្រេ", o: ["100 ដឺក្រេ", "20 ឌឺក្រេ", "40 ដឺក្រេ"]}
         ];
     }
@@ -265,54 +266,34 @@
     }
 
     function showResult() {
-        const name = document.getElementById('studentName').value;
-        const roll = document.getElementById('rollNumber').value;
-        const dateStr = new Date().toLocaleString('km-KH');
-        
-        document.getElementById('resName').innerText = name; 
-        document.getElementById('resGender').innerText = selectedGender; 
-        document.getElementById('resClass').innerText = selectedClass; 
-        document.getElementById('resRoll').innerText = roll;
-        document.getElementById('resScore').innerText = score; 
-        document.getElementById('resCorrect').innerText = correctCount; 
-        document.getElementById('resWrong').innerText = wrongCount; 
-        document.getElementById('resUnknown').innerText = unknownCount; 
-        document.getElementById('resDate').innerText = dateStr;
-        
+        const name = document.getElementById('studentName').value, roll = document.getElementById('rollNumber').value, dateStr = new Date().toLocaleString('km-KH');
+        document.getElementById('resName').innerText = name; document.getElementById('resGender').innerText = selectedGender; document.getElementById('resClass').innerText = selectedClass; document.getElementById('resRoll').innerText = roll;
+        document.getElementById('resScore').innerText = score; document.getElementById('resCorrect').innerText = correctCount; document.getElementById('resWrong').innerText = wrongCount; document.getElementById('resUnknown').innerText = unknownCount; document.getElementById('resDate').innerText = dateStr;
         goToStep(4);
-
-        // ផ្ញើទិន្នន័យទៅ Google Sheet
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            cache: 'no-cache',
+        
+        // ផ្ញើទិន្នន័យទៅកាន់ Google Sheets
+        fetch(SCRIPT_URL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                date: dateStr,
-                roll: roll,
-                name: name,
-                gender: selectedGender,
-                className: selectedClass,
-                correct: correctCount,
-                wrong: wrongCount,
-                unknown: unknownCount,
-                score: score
-            })
-        }).then(() => {
-            document.getElementById('status-msg').innerText = "✓ រក្សាទុកពិន្ទុក្នុងប្រព័ន្ធរួចរាល់!";
-            document.getElementById('status-msg').style.color = "#10b981";
-        }).catch(err => {
-            document.getElementById('status-msg').innerText = "❌ បញ្ហាផ្ញើពិន្ទុ សូមថតរូបទុក!";
-            document.getElementById('status-msg').style.color = "#ef4444";
-        });
+            body: JSON.stringify({ 
+                date: dateStr, 
+                roll: roll, 
+                name: name, 
+                gender: selectedGender, 
+                className: selectedClass, 
+                correct: correctCount, 
+                wrong: wrongCount, 
+                unknown: unknownCount, 
+                score: score 
+            }) 
+        })
+        .then(() => { document.getElementById('status-msg').innerText = "✓ រក្សាទុកពិន្ទុជោគជ័យ!"; });
     }
 
     function downloadImage() {
         html2canvas(document.getElementById('capture-area'), {backgroundColor: '#111827', scale: 2}).then(canvas => {
-            const link = document.createElement('a'); 
-            link.download = `Math_May_Exam_${document.getElementById('studentName').value}.png`; 
-            link.href = canvas.toDataURL(); 
-            link.click();
+            const link = document.createElement('a'); link.download = `Math_May_Exam_${document.getElementById('studentName').value}.png`; link.href = canvas.toDataURL(); link.click();
         });
     }
 </script>
