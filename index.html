@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ប្រឡងប្រចាំខែឧសភា - គណិតវិទ្យា ថ្នាក់ទី៩</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap');
+        :root { --primary: #1e3a8a; --gold: #fbbf24; --danger: #ef4444; --success: #10b981; --gray: #6b7280; --glass: rgba(255, 255, 255, 0.1); }
+        
+        body.blurred { filter: blur(20px); pointer-events: none; user-select: none; }
+        body { margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #e5e7eb; font-family: 'Kantumruy Pro', sans-serif; user-select: none; -webkit-user-select: none; }
+        .main-container { width: 100%; max-width: 650px; }
+        .book-cover { background: linear-gradient(135deg, #1e3a8a 0%, #111827 100%); border-radius: 20px; padding: 40px; color: white; box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative; min-height: 600px; display: flex; flex-direction: column; justify-content: space-between; border-left: 15px solid rgba(0,0,0,0.3); }
+        .school-name { font-family: 'Moul', serif; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-size: 18px; }
+        .subject-title { font-family: 'Moul', serif; font-size: 30px; color: var(--gold); text-align: center; margin-top: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .grade-badge { background: #be123c; padding: 5px 25px; border-radius: 50px; align-self: center; font-weight: bold; margin-bottom: 10px; }
+        .btn { background: var(--gold); color: #000; border: none; padding: 15px; border-radius: 12px; font-family: 'Kantumruy Pro'; font-weight: bold; cursor: pointer; width: 100%; font-size: 18px; transition: 0.3s; margin-top: 10px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(251,191,36,0.4); }
+        .hidden { display: none !important; }
+        .form-container { background: var(--glass); padding: 25px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.15); }
+        .input-group { margin-bottom: 15px; }
+        .label-text { display: block; font-size: 14px; margin-bottom: 8px; color: var(--gold); font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .input-style { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.2); color: white; font-size: 16px; font-family: 'Kantumruy Pro'; box-sizing: border-box; transition: 0.3s; }
+        .selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 10px; }
+        .select-btn { padding: 12px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); color: white; border-radius: 10px; cursor: pointer; font-family: 'Kantumruy Pro'; transition: 0.2s; font-size: 15px; }
+        .select-btn.active { background: white; color: var(--primary); font-weight: bold; }
+        .instruction-box { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; border: 1px solid var(--gold); line-height: 1.8; }
+        .ins-item { display: flex; align-items: flex-start; margin-bottom: 12px; gap: 12px; font-size: 15px; }
+        .question-box { background: rgba(255,255,255,0.08); padding: 25px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .option-btn { background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-align: left; cursor: pointer; margin-bottom: 12px; width: 100%; font-family: 'Kantumruy Pro'; transition: 0.2s; font-size: 16px; }
+        .option-btn.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.2); font-weight: bold; }
+        .option-btn.wrong { border-color: var(--danger); background: rgba(239, 68, 68, 0.2); }
+        .dont-know-btn { background: var(--gray); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; margin-top: 10px; font-family: 'Kantumruy Pro'; cursor: pointer; opacity: 0.8; }
+        #capture-area { padding: 30px; border-radius: 20px; background: #111827; border: 2px solid var(--gold); text-align: center; }
+        .score-circle { width: 140px; height: 140px; border: 8px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 20px auto; font-weight: bold; background: rgba(251, 191, 36, 0.1); color: var(--gold); }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; margin: 20px 0; font-size: 14px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .footer { display: flex; justify-content: space-between; align-items: flex-end; font-size: 13px; margin-top: 10px; }
+        .teacher-name { font-family: 'Moul', serif; color: var(--gold); font-size: 14px; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="main-container">
+    <div class="book-cover">
+        <!-- ជំហានទី១ -->
+        <div id="step-1">
+            <div class="school-name">វិទ្យាល័យ ប៊ុនរ៉ានី ហ៊ុន សែន ចន្ទ្រា</div>
+            <div class="subject-title">ការប្រឡងប្រចាំខែឧសភា</div>
+            <div style="text-align: center; margin: 25px 0;"><span class="grade-badge">វិញ្ញាសា៖ គណិតវិទ្យា ថ្នាក់ទី៩</span></div>
+            <button class="btn" onclick="goToStep(2)">ចាប់ផ្តើមការប្រឡង</button>
+        </div>
+
+        <!-- ជំហានទី២ -->
+        <div id="step-2" class="hidden">
+            <h3 style="font-family: Moul; text-align: center; color: var(--gold); margin-bottom: 20px;">ព័ត៌មានបេក្ខជន</h3>
+            <div class="form-container">
+                <div class="input-group">
+                    <label class="label-text">👤 ឈ្មោះសិស្ស</label>
+                    <input type="text" id="studentName" class="input-style" placeholder="បញ្ចូលឈ្មោះ...">
+                </div>
+                <div class="input-group">
+                    <label class="label-text">🚻 ភេទ</label>
+                    <div class="selection-grid">
+                        <button class="select-btn gender-opt" onclick="selectGender(this, 'ប្រុស')">ប្រុស</button>
+                        <button class="select-btn gender-opt" onclick="selectGender(this, 'ស្រី')">ស្រី</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label class="label-text">🔢 លេខរៀងក្នុងបញ្ជី (ID)</label>
+                    <input type="text" id="rollNumber" class="input-style" placeholder="វាយបញ្ចូលលេខរៀង...">
+                </div>
+                <div class="input-group">
+                    <label class="label-text">🏫 ថ្នាក់</label>
+                    <div class="selection-grid">
+                        <button class="select-btn class-opt" onclick="selectClass(this, '9A')">9A</button>
+                        <button class="select-btn class-opt" onclick="selectClass(this, '9B')">9B</button>
+                        <button class="select-btn class-opt" onclick="selectClass(this, '9C')">9C</button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" onclick="showInstructions()" style="background: var(--success); color: white; margin-top: 20px;">បន្តទៅការណែនាំ ➔</button>
+        </div>
+
+        <!-- ការណែនាំ -->
+        <div id="step-instructions" class="hidden">
+            <h3 style="font-family: Moul; text-align: center; color: var(--gold); margin-bottom: 10px;">បម្រាម និងការណែនាំ</h3>
+            <div class="instruction-box">
+                <div class="ins-item" style="color: var(--danger); font-weight: bold;"><div>🚫</div><div>ហាមចាកចេញពីផ្ទាំងប្រឡង ឬប្តូរ Tab បើមិនដូច្នោះទេ វានឹង Reset ឱ្យធ្វើឡើងវិញភ្លាម!</div></div>
+                <div class="ins-item"><div>✅</div><div>សំណួរមានចំនួន ៣០។ ត្រូវទទួលបាន ២ ពិន្ទុ | ខុសដក ១ ពិន្ទុ។</div></div>
+                <div class="ins-item"><div>ℹ️</div><div>ប្រសិនបើមិនចេះ សូមចុច "មិនចេះ" (ទទួលបាន ០ ពិន្ទុ)។</div></div>
+            </div>
+            <button class="btn" onclick="startQuiz()">យល់ព្រម និងចាប់ផ្តើម</button>
+        </div>
+
+        <!-- លំហាត់ -->
+        <div id="step-3" class="hidden">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; color: var(--gold); font-weight: bold; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                <span id="q-counter">សំណួរទី 1/30</span>
+                <span id="score-counter">ពិន្ទុ៖ 0</span>
+            </div>
+            <div class="question-box">
+                <div class="question-text" id="questionText" style="margin-bottom: 20px; font-size: 18px; line-height: 1.6;"></div>
+                <div id="optionsContainer"></div>
+                <button id="dontKnowBtn" class="dont-know-btn" onclick="handleDontKnow()">❓ ខ្ញុំមិនចេះសំណួរនេះទេ</button>
+            </div>
+            <button id="nextBtn" class="btn hidden" onclick="nextQuestion()" style="background: white; color: var(--primary);">សំណួរបន្ទាប់ ➔</button>
+        </div>
+
+        <!-- លទ្ធផល -->
+        <div id="step-4" class="hidden">
+            <h2 style="font-family: Moul; color: var(--gold); text-align: center;">លទ្ធផលការប្រឡង</h2>
+            <div id="capture-area">
+                <div style="font-family: Moul; font-size: 14px; color: #fff; margin-bottom: 10px;">វិទ្យាល័យ ប៊ុនរ៉ានី ហ៊ុន សែន ចន្ទ្រា</div>
+                <div class="info-grid">
+                    <div>លេខរៀង៖ <span id="resRoll" style="color: var(--gold); font-weight: bold;"></span></div>
+                    <div>ឈ្មោះ៖ <span id="resName" style="color: var(--gold); font-weight: bold;"></span></div>
+                    <div>ភេទ៖ <span id="resGender" style="color: #fff;"></span></div>
+                    <div>ថ្នាក់៖ <span id="resClass" style="color: #fff;"></span></div>
+                </div>
+                <div class="score-circle" id="resScore">0</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; margin-bottom: 10px; font-size: 14px;">
+                    <span style="color: var(--success);">ត្រូវ៖ <strong id="resCorrect">0</strong></span> | 
+                    <span style="color: var(--danger);">ខុស៖ <strong id="resWrong">0</strong></span> | 
+                    <span style="color: var(--gray);">មិនចេះ៖ <strong id="resUnknown">0</strong></span>
+                </div>
+                <div style="font-size: 11px; color: var(--gold);">ប្រឡងប្រចាំខែឧសភា</div>
+                <div style="font-size: 10px; opacity: 0.7; margin-top: 5px;">កាលបរិច្ឆេទ៖ <span id="resDate"></span></div>
+                <div id="status-msg" style="margin-top: 10px; font-size: 11px; color: var(--gold);">កំពុងផ្ញើពិន្ទុ...</div>
+            </div>
+            <button class="btn" style="background:#3b82f6; color:white;" onclick="downloadImage()">⬇ ទាញយករូបភាពលទ្ធផល</button>
+            <button class="btn" onclick="location.reload()">ត្រឡប់ទៅដើម</button>
+        </div>
+
+        <div class="footer" id="mainFooter">
+            <div>ឆ្នាំសិក្សា ២០២៥ - ២០២៦</div>
+            <div style="text-align: right;"><div style="font-size: 11px;">រៀបរៀងដោយ</div><div class="teacher-name">ចាន់ សុខហេង</div></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Link ថ្មីរបស់លោកគ្រូ
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymh8B43LyACVC59loq6aLtBzUd0Ynpm2fGqtL9s6gac6Wv8XICqhIetv42954mTFwp/exec";
+
+    let currentQ = 0, score = 0, correctCount = 0, wrongCount = 0, unknownCount = 0;
+    let selectedClass = "", selectedGender = "";
+    let quizQuestions = [];
+    let isQuizStarted = false;
+
+    // --- ប្រព័ន្ធសុវត្ថិភាព ---
+    document.addEventListener("visibilitychange", function() {
+        if (document.hidden && isQuizStarted) {
+            alert("⚠️ បម្រាម៖ អ្នកបានចាកចេញពីផ្ទាំងប្រឡង! កម្មវិធីនឹង Reset ឱ្យធ្វើឡើងវិញ។");
+            location.reload();
+        }
+    });
+
+    window.onblur = function() { if (isQuizStarted) document.body.classList.add('blurred'); };
+    window.onfocus = function() { document.body.classList.remove('blurred'); };
+
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'p' || e.key === 's' || e.key === 'u')) e.preventDefault();
+        if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) e.preventDefault();
+    });
+
+    // --- មុខងារកម្មវិធី ---
+    function goToStep(s) {
+        document.querySelectorAll('[id^="step-"]').forEach(d => d.classList.add('hidden'));
+        const target = (s === 'instructions') ? 'step-instructions' : 'step-' + s;
+        document.getElementById(target).classList.remove('hidden');
+    }
+
+    function selectGender(btn, g) {
+        document.querySelectorAll('.gender-opt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active'); selectedGender = g;
+    }
+
+    function selectClass(btn, c) {
+        document.querySelectorAll('.class-opt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active'); selectedClass = c;
+    }
+
+    function showInstructions() {
+        if(!document.getElementById('studentName').value || !selectedGender || !document.getElementById('rollNumber').value || !selectedClass) return alert("សូមបំពេញព័ត៌មានឱ្យគ្រប់គ្រាន់!");
+        goToStep('instructions');
+    }
+
+    function generateQuestions() {
+        return [
+            {q: "ក្នុងថង់មួយមានឃ្លីក្រហម ៤ ឃ្លីស ៦ និងឃ្លីខៀវ ៥។ រកប្រូបាបចាប់បានឃ្លីដែលមិនមែនជាពណ៌ស?", a: "3/5", o: ["2/5", "2/3", "4/15"]},
+            {q: "បោះគ្រាប់ឡុកឡាក់មួយគ្រាប់។ រកប្រូបាបចេញលេខជាតួចែកនៃលេខ ៦?", a: "2/3", o: ["1/2", "1/3", "5/6"]},
+            {q: "ក្នុងប្រអប់មានប៊ិចខៀវ ៧ ដើម និងប៊ិចក្រហមមួយចំនួន។ បើប្រូបាបចាប់បានប៊ិចខៀវគឺ ៧/១០ រកចំនួនប៊ិចក្រហម?", a: "3 ដើម", o: ["10 ដើម", "7 ដើម", "5 ដើម"]},
+            {q: "បោះកាក់ពីរព្រមគ្នា។ រកប្រូបាបដែលកាក់ទាំងពីរចេញមុខដូចគ្នា (HH ឬ TT)?", a: "0.5", o: ["0.25", "0.75", "1"]},
+            {q: "រកប្រូបាបជ្រើសរើសបានលេខបឋម (Prime Number) ពីក្នុងចំណោមលេខ ១ ដល់ ២០?", a: "2/5", o: ["7/20", "9/20", "1/2"]},
+            {q: "រកចម្ងាយរវាងចំណុច A(-1, 2) និង B(2, 6)?", a: "5", o: ["√7", "25", "7"]},
+            {q: "រកចម្ងាយរវាង P(-3, -2) និង Q(1, 1)?", a: "5", o: ["√5", "7", "4"]},
+            {q: "រកចំណុចកណ្តាល M នៃអង្កត់ AB ដែល A(-3, 5) និង B(7, -1)?", a: "(2, 2)", o: ["(5, 4)", "(4, 6)", "(2, 3)"]},
+            {q: "បើ M(1, 4) ជាចំណុចកណ្តាលនៃ AB ហើយ A(-2, 3) រកកូអរដោនេចំណុច B?", a: "(4, 5)", o: ["(-0.5, 3.5)", "(-5, 2)", "(0, 7)"]},
+            {q: "រកចម្ងាយពីគល់អ័ក្ស O(0, 0) ទៅចំណុច K(√7, 3)?", a: "4", o: ["10", "√10", "16"]},
+            {q: "រកមេគុណប្រាប់ទិសនៃបន្ទាត់ដែលមានសមីការ 2x + 3y - 6 = 0?", a: "-2/3", o: ["2/3", "-2", "3/2"]},
+            {q: "រកមេគុណប្រាប់ទិសនៃបន្ទាត់ដែលកាត់តាមចំណុច A(2, -3) និង B(-1, 6)?", a: "-3", o: ["3", "1", "-1/3"]},
+            {q: "តើបន្ទាត់ y = -2x + 5 កែងនឹងបន្ទាត់ដែលមានសមីការមួយណា?", a: "y = 0.5x - 1", o: ["y = 2x + 1", "y = -2x", "y = -0.5x"]},
+            {q: "រកតម្លៃ m ដើម្បីឱ្យបន្ទាត់ y = mx - 4 កាត់តាមចំណុច (2, 2)?", a: "3", o: ["1", "-3", "0"]},
+            {q: "សមីការបន្ទាត់ដែលកាត់តាមចំណុច (0, 3) និងស្របនឹងបន្ទាត់ y = 2x - 5 គឺ?", a: "y = 2x + 3", o: ["y = -5x + 3", "y = 2x - 3", "y = -0.5x + 3"]},
+            {q: "មុំចារឹកក្នុងមួយស្ទាក់ធ្នូដែលមានរង្វាស់ ១២០ ដឺក្រេ។ រកកម្រិតរង្វាស់មុំនោះ?", a: "60 ដឺក្រេ", o: ["120 ដឺក្រេ", "240 ដឺក្រេ", "30 ដឺក្រេ"]},
+            {q: "មុំផ្ចិតមួយមានរង្វាស់ ៨០ ដឺក្រេ។ រកមុំចារឹកក្នុងដែលស្ទាក់ធ្នូជាមួយគ្នា?", a: "40 ដឺក្រេ", o: ["80 ដឺក្រេ", "160 ដឺក្រេ", "20 ដឺក្រេ"]},
+            {q: "ក្នុងត្រីកោណ ABC មាន DE // BC។ បើ AD = 4, DB = 2 និង AE = 6 រកប្រវែង EC?", a: "3", o: ["4", "12", "8"]},
+            {q: "ក្នុងរង្វង់មួយ បើមុំផ្ចិតមានរង្វាស់ (3x + 10) ហើយមុំចារឹកក្នុងស្ទាក់ធ្នូជាមួយគ្នាមានរង្វាស់ ៥០ ដឺក្រេ។ រកតម្លៃ x?", a: "30", o: ["20", "40", "15"]},
+            {q: "មុំបង្កើតដោយបន្ទាត់ប៉ះ និងអង្កត់ធ្នូស្ទាក់បានធ្នូ ៩០ ដឺក្រេ។ រកមុំនោះ?", a: "45 ដឺក្រេ", o: ["90 ដឺក្រេ", "180 ដឺក្រេ", "22.5 ដឺក្រេ"]},
+            {q: "រកចម្ងាយរវាងបន្ទាត់ដេក y = 4 និងបន្ទាត់ដេក y = -2?", a: "6", o: ["2", "-2", "8"]},
+            {q: "បន្ទាត់ដែលកាត់តាម (1, 5) និង (1, -2) ជាបន្ទាត់ប្រភេទណា?", a: "បន្ទាត់ឈរ", o: ["បន្ទាត់ដេក", "បន្ទាត់បញ្ឆិត", "បន្ទាត់កាត់តាម O"]},
+            {q: "រកកូអរដោនេចំណុចកណ្តាលនៃ A(1/2, 1) និង B(3/2, 5)?", a: "(1, 3)", o: ["(2, 6)", "(1, 2)", "(1/2, 3)"]},
+            {q: "បើបន្ទាត់ y = ax + 3 និង y = 3x - 1 ស្របគ្នា តម្លៃ a គឺ?", a: "3", o: ["-3", "1/3", "-1/3"]},
+            {q: "មុំចារឹកក្នុងពីរដែលស្ទាក់ធ្នូដដែល តើវាមានទំនាក់ទំនងយ៉ាងណា?", a: "មានរង្វាស់ស្មើគ្នា", o: ["មានរង្វាស់បន្ថែមគ្នា", "មានរង្វាស់បំពេញគ្នា", "ផលបូកស្មើ ១៨០"]},
+            {q: "ក្នុងត្រីកោណកែងមួយ ជ្រុងមុំកែងមានប្រវែង ៦ និង ៨។ រកចម្ងាយពីកំពូលមុំកែងទៅពាក់កណ្តាលអ៊ីប៉ូតេនុស?", a: "5", o: ["10", "7", "√14"]},
+            {q: "រកមេគុណប្រាប់ទិសនៃអ័ក្សអរដោនេ (Oy)?", a: "គ្មានមេគុណប្រាប់ទិស", o: ["0", "1", "-1"]},
+            {q: "បើបោះឡុកឡាក់មួយគ្រាប់ តើប្រូបាបដែលមិនចេញលេខ ៦ គឺ?", a: "5/6", o: ["1/6", "0", "1"]},
+            {q: "មុំចារឹកក្នុងកន្លះរង្វង់មានរង្វាស់ប៉ុន្មាន?", a: "π/2 រ៉ាដ្យង់", o: ["π រ៉ាដ្យង់", "90 រ៉ាដ្យង់", "45 ដឺក្រេ"]},
+            {q: "ក្នុងរង្វង់មួយ ធ្នូ AC មានរង្វាស់ ៧០ ដឺក្រេ និងធ្នូ BD មានរង្វាស់ ៣០ ដឺក្រេ។ រកមុំដែលបង្កើតដោយអង្កត់ធ្នូ AC និង BD កាត់គ្នាក្នុងរង្វង់?", a: "50 ដឺក្រេ", o: ["100 ដឺក្រេ", "20 ឌឺក្រេ", "40 ដឺក្រេ"]}
+        ];
+    }
+
+    function startQuiz() {
+        quizQuestions = generateQuestions().sort(() => Math.random() - 0.5); 
+        currentQ = 0; score = 0; correctCount = 0; wrongCount = 0; unknownCount = 0;
+        isQuizStarted = true;
+        goToStep(3); loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = quizQuestions[currentQ];
+        document.getElementById('q-counter').innerText = `សំណួរទី ${currentQ + 1}/30`;
+        document.getElementById('questionText').innerText = q.q;
+        document.getElementById('nextBtn').classList.add('hidden');
+        document.getElementById('dontKnowBtn').classList.remove('hidden');
+        const container = document.getElementById('optionsContainer'); container.innerHTML = '';
+        const options = [q.a, ...q.o].sort(() => Math.random() - 0.5);
+        options.forEach(opt => {
+            const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerText = opt;
+            btn.onclick = function() {
+                if(!document.getElementById('nextBtn').classList.contains('hidden')) return;
+                document.getElementById('dontKnowBtn').classList.add('hidden');
+                if(opt === q.a) { this.classList.add('correct'); score += 2; correctCount++; }
+                else { this.classList.add('wrong'); score -= 1; wrongCount++; }
+                document.getElementById('score-counter').innerText = `ពិន្ទុ៖ ${score}`;
+                document.getElementById('nextBtn').classList.remove('hidden');
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    function handleDontKnow() {
+        if(!document.getElementById('nextBtn').classList.contains('hidden')) return;
+        unknownCount++; document.getElementById('dontKnowBtn').classList.add('hidden');
+        document.getElementById('optionsContainer').innerHTML = '<div style="color: var(--gold); text-align: center; padding: 20px;">កូនបានជ្រើសរើស "មិនចេះ" (ទទួលបាន ០ ពិន្ទុ)</div>';
+        document.getElementById('nextBtn').classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        if(currentQ < 30) loadQuestion();
+        else { isQuizStarted = false; showResult(); }
+    }
+
+    function showResult() {
+        const name = document.getElementById('studentName').value;
+        const roll = document.getElementById('rollNumber').value;
+        const dateStr = new Date().toLocaleString('km-KH');
+        
+        document.getElementById('resName').innerText = name; 
+        document.getElementById('resGender').innerText = selectedGender; 
+        document.getElementById('resClass').innerText = selectedClass; 
+        document.getElementById('resRoll').innerText = roll;
+        document.getElementById('resScore').innerText = score; 
+        document.getElementById('resCorrect').innerText = correctCount; 
+        document.getElementById('resWrong').innerText = wrongCount; 
+        document.getElementById('resUnknown').innerText = unknownCount; 
+        document.getElementById('resDate').innerText = dateStr;
+        
+        goToStep(4);
+
+        // ផ្ញើទិន្នន័យទៅ Google Sheet
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                date: dateStr,
+                roll: roll,
+                name: name,
+                gender: selectedGender,
+                className: selectedClass,
+                correct: correctCount,
+                wrong: wrongCount,
+                unknown: unknownCount,
+                score: score
+            })
+        }).then(() => {
+            document.getElementById('status-msg').innerText = "✓ រក្សាទុកពិន្ទុក្នុងប្រព័ន្ធរួចរាល់!";
+            document.getElementById('status-msg').style.color = "#10b981";
+        }).catch(err => {
+            document.getElementById('status-msg').innerText = "❌ បញ្ហាផ្ញើពិន្ទុ សូមថតរូបទុក!";
+            document.getElementById('status-msg').style.color = "#ef4444";
+        });
+    }
+
+    function downloadImage() {
+        html2canvas(document.getElementById('capture-area'), {backgroundColor: '#111827', scale: 2}).then(canvas => {
+            const link = document.createElement('a'); 
+            link.download = `Math_May_Exam_${document.getElementById('studentName').value}.png`; 
+            link.href = canvas.toDataURL(); 
+            link.click();
+        });
+    }
+</script>
+</body>
+</html>
